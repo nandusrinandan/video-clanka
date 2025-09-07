@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Video Clanka</title>
+    <link rel="stylesheet" href="index.css" />
+    <script defer src="render.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+<body class="p-4">
+    <div class="container">
+        <h1 class="text-3xl font-bold text-center text-gray-100">Video Clanka</h1>
+
+        <div class="w-full flex justify-center">
+            <video id="videoElement" controls autoplay class="w-full h-auto min-h-80 max-h-[400px] bg-gray-900 rounded-xl shadow-lg"></video>
+        </div>
+
+        <div class="flex justify-center">
+            <button id="pickBtn" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-indigo-700 transition duration-300">
+                Pick Video
+            </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <span class="text-gray-200 font-medium">Resolution:</span>
+            <select id="resolutions" class="bg-gray-700 text-gray-200 border border-gray-600 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="480p">480p</option>
+                <option value="720p">720p</option>
+                <option value="1080p">1080p</option>
+            </select>
+            <button id="resizeBtn" class="bg-gray-600 text-gray-200 font-semibold py-2 px-4 rounded-full shadow-md hover:bg-gray-500 transition duration-300">
+                Resize & Reload
+            </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <span class="text-gray-200 font-medium">Trim:</span>
+            <div class="flex items-center gap-2">
+                <input type="number" id="startTime" min="0" step="1" placeholder="Start (s)" class="w-28 text-center bg-gray-700 text-gray-200 border border-gray-600 rounded-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+                <span class="text-gray-400">-</span>
+                <input type="number" id="endTime" min="0" step="1" placeholder="End (s)" class="w-28 text-center bg-gray-700 text-gray-200 border border-gray-600 rounded-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+            </div>
+            <button id="trimBtn" class="bg-gray-600 text-gray-200 font-semibold py-2 px-4 rounded-full shadow-md hover:bg-gray-500 transition duration-300">
+                Trim
+            </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="flex flex-col items-center justify-center gap-4 w-full">
+            <div class="flex flex-wrap items-center justify-center gap-4 w-full">
+                <span class="text-gray-200 font-medium">Caption Height (in px):</span>
+                <input id="captionHeight" type="number" value="200" class="w-28 text-center bg-gray-700 text-gray-200 border border-gray-600 rounded-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+                <span class="text-gray-200 font-medium">Background Color for caption:</span>
+                <select id="captionBGcolors" class="bg-gray-700 text-gray-200 border border-gray-600 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <option value="Black" selected>Black</option>
+                  <option value="White">White</option>
+                  <option value="Red">Red</option>
+                  <option value="Blue">Blue</option>
+                  <option value="Yellow">Yellow</option>
+                  <option value="Purple">Purple</option>
+                  <option value="Orange">Orange</option>
+                </select>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-4 w-full">
+                <span class="text-gray-200 font-medium">Font:</span>
+                <select id="fonts" class="bg-gray-700 text-gray-200 border border-gray-600 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <option value="Arial">Arial</option>
+                  <option value="Comic Sans">Comic Sans</option>
+                  <option value="Courier New">Courier New</option>
+                  <option value="Georgia">Georgia</option>
+                </select>
+                <span class="text-gray-200 font-medium">Font Color:</span>
+                <select id="colors" class="bg-gray-700 text-gray-200 border border-gray-600 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <option value="Black" selected>Black</option>
+                  <option value="White">White</option>
+                  <option value="Red">Red</option>
+                  <option value="Blue">Blue</option>
+                  <option value="Yellow">Yellow</option>
+                  <option value="Purple">Purple</option>
+                  <option value="Orange">Orange</option>
+                </select>
+                <span class="text-gray-200 font-medium">Font Size:</span>
+                  <select id="fontSize" class="bg-gray-700 text-gray-200 border border-gray-600 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="12">Small</option>
+                    <option value="48" selected>Medium</option>
+                    <option value="96">Large</option>
+                  </select>
+            </div>
+            <textarea id="caption" rows="4" cols="50" class="flex-grow w-full bg-gray-700 text-gray-200 border border-gray-600 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Type your caption here...">Top title caption</textarea>
+            <button id="addCaptionBtn" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-gray-500 transition duration-300 w-full">
+                Add caption
+            </button>
+        </div>
+
+        <div class="divider"></div>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <span class="text-gray-200 font-medium">Format processors:</span>
+            <button id="muted" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-gray-500 transition duration-300">
+                Only Video (mp4)
+            </button>
+            <button id="mp3" class="bg-gray-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-gray-500 transition duration-300">
+                Only Audio (mp3)
+            </button>
+        </div>
+
+        <!-- <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <span class="text-gray-200 font-medium">Camera:</span>
+            <button id="openCamera" onClick="openCamera()" class="bg-green-600 text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-green-700 transition duration-300">
+                Open Camera
+            </button>
+            <button id="closeCamera" onClick="closeCamera()" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-red-700 transition duration-300">
+                Close Camera
+            </button>
+        </div> -->
+    </div>
+</body>
+</html>
