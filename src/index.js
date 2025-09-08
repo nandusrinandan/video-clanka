@@ -57,7 +57,7 @@ app.on('window-all-closed', () => {
 ipcMain.handle("dialog:openFile", async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     properties: ["openFile"],
-    filters: [{ name: "Videos", extensions: ["mp4", "mov", "avi", "mkv"] }]
+    filters: [{ name: "Media", extensions: ["mp4", "mov", "avi", "mkv", "mp3"] }]
   });
   if (canceled) return null;
   return filePaths[0];

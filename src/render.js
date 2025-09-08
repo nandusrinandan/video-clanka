@@ -11,6 +11,7 @@ const trimBtn = document.getElementById("trimBtn");
 
 const muted = document.getElementById('muted');
 const mp3 = document.getElementById('mp3');
+const audioPath = null;
 
 pickBtn.addEventListener("click", async () => {
   const filePath = await window.electronAPI.openFile();
@@ -113,6 +114,18 @@ mp3.addEventListener("click", async() => {
         input: currentPath
     });
     video.src = `file://${mp3Path}`;
+});
+
+insertAudio.addEventListener("click", async() => {
+    const filePath = await window.electronAPI.openFile();
+    if (filePath) {
+        audioPath = filePath;
+        console.log("Audio Video merging not working fully. Check the code for source command to try and fix :D");
+        // I am yet to add the logic for audio and video merging logic
+        // Got stuck with ffmpeg stream and filters : 
+        // ffmpeg -i input.mp4 -i audio.mp3 -filter_complex "[1:a]aloop=loop=-1:size=2e9[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -shortest output.mp4 
+        // not fully working. check
+    }
 });
 
 // Webcam stuff 
